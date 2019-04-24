@@ -4,17 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+requests = "*"
+ipdb = "*"
+coverage = "*"
+behave = "*"
 
 [packages]
-ipdb = "*"
+flask-marshmallow = "*"
 flask = "*"
 flask-migrate = "*"
 flask-sqlalchemy = "*"
 marshmallow-sqlalchemy = "*"
 passlib = "*"
 flask-jwt-extended = "*"
-requests = "*"
-marshmallow = "*"
 
 [requires]
 python_version = "3.7"
