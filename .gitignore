@@ -458,3 +458,5 @@ modules.xml
 # Pyre type checker
 
 # End of https://www.gitignore.io/api/pydev,linux,flask,python,pycharm+all,pycharm+iml,archlinuxpackages
+
+\.vscode/
