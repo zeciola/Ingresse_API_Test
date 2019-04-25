@@ -1,17 +1,22 @@
 from flask import Blueprint, jsonify, request, current_app
 from .serializer import UserSchema
 from .model import User
+from flask_jwt_extended import jwt_required
+
 
 blue_print_user = Blueprint("user", __name__)
 
-@blue_print_user.route('/')
+
+@blue_print_user.route("/")
 def defalt():
-    return jsonify({'Ingresse API Online': True})
+    return jsonify({"Ingresse API Online": True})
+
 
 # Mostrar todos
 
 
 @blue_print_user.route("/show", methods=["GET"])
+@jwt_required
 def show():
 
     result = User.query.all()
@@ -23,6 +28,7 @@ def show():
 
 
 @blue_print_user.route("/show_by_id/<identificator>", methods=["GET"])
+@jwt_required
 def show_by_id(identificator):
 
     result = User.query.filter(User.id == identificator)
@@ -34,7 +40,7 @@ def show_by_id(identificator):
 
 
 @blue_print_user.route("/register_user", methods=["POST"])
-def create():
+def register():
     us = UserSchema()
 
     user, error = us.load(request.json)
@@ -52,7 +58,9 @@ def create():
 
 # Mudar por id
 
+
 @blue_print_user.route("/change_by_id/<identificator>", methods=["PUT"])
+@jwt_required
 def change_id(identificator):
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
@@ -65,10 +73,12 @@ def change_id(identificator):
 
     return us.jsonify(query.first())
 
+
 # Deletar por id
 
 
 @blue_print_user.route("/delete_by_id/<identificator>", methods=["DELETE"])
+@jwt_required
 def delete_id(identificator):
 
     us = UserSchema()
