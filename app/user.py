@@ -54,8 +54,8 @@ def change(identificator):
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
 
-    if us.jsonify(query) != None:
-        return jsonify('Error not found user id')
+    if us.jsonify(query.first()).get_json() == {}:
+        return jsonify("Error not found user id"), 401
 
     query.update(request.json)
     current_app.db.session.commit()
@@ -66,13 +66,13 @@ def change(identificator):
 # Mudar por id
 
 
-@blue_print_user.route("/change_by_username/<identificator>", methods=["GET","PUT"])
+@blue_print_user.route("/change_by_username/<identificator>", methods=["GET", "PUT"])
 def change_username(identificator):
-    
+
     us = UserSchema()
     query = User.query.filter(User.username == identificator)
-    if us.jsonify(query) != None:
-        return jsonify('Error not found user')
+    if us.jsonify(query.first()).get_json() == {}:
+        return jsonify("Error not found user"), 401
     query.update(request.json)
     current_app.db.session.commit()
 
@@ -82,14 +82,16 @@ def change_username(identificator):
 # Deletar por id
 
 
-@blue_print_user.route("/delete_by_id/<identificator>", methods=["GET","DELETE"])
+@blue_print_user.route("/delete_by_id/<identificator>", methods=["GET", "DELETE"])
 def delete_id(identificator):
 
     us = UserSchema()
     query = User.query.filter(User.username == identificator)
 
-    if us.jsonify(query) != None:
-        return jsonify('Error not found user id')
+    # import ipdb; ipdb.set_trace()
+
+    if us.jsonify(query.first()).get_json() == {}:
+        return jsonify("Error not found user id"), 401
 
     User.query.filter(User.id == identificator).delete()
     current_app.db.session.commit()
