@@ -11,9 +11,9 @@ def configure_db(app):
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255))
-    password = db.Column(db.String(255))
-    email = db.Column(db.String(255))
+    username = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=False)
     date_of_birth = db.Column(db.DateTime())
 
     def password_hash(self):
