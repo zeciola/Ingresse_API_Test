@@ -4,6 +4,10 @@ from .model import User
 
 blue_print_user = Blueprint("user", __name__)
 
+@blue_print_user.route('/')
+def defalt():
+    return jsonify({'Ingresse API Online': True})
+
 # Mostrar todos
 
 
@@ -48,45 +52,27 @@ def create():
 
 # Mudar por id
 
-
-@blue_print_user.route("/change_by_id/<identificator>", methods=["POST"])
-def change(identificator):
+@blue_print_user.route("/change_by_id/<identificator>", methods=["PUT"])
+def change_id(identificator):
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
 
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify(f"Error not found user id: {identificator}"), 401
+        return jsonify(f"Error not found user {identificator}"), 401
 
     query.update(request.json)
     current_app.db.session.commit()
 
     return us.jsonify(query.first())
 
-
-# Mudar por id
-
-
-@blue_print_user.route("/change_by_username/<identificator>", methods=["GET", "PUT"])
-def change_username(identificator):
-
-    us = UserSchema()
-    query = User.query.filter(User.username == identificator)
-    if us.jsonify(query.first()).get_json() == {}:
-        return jsonify(f"Error not found user {identificator}"), 401
-    query.update(request.json)
-    current_app.db.session.commit()
-
-    return jsonify(f"The user {identificator} has been modified"), 200
-
-
 # Deletar por id
 
 
-@blue_print_user.route("/delete_by_id/<identificator>", methods=["GET", "DELETE"])
+@blue_print_user.route("/delete_by_id/<identificator>", methods=["DELETE"])
 def delete_id(identificator):
 
     us = UserSchema()
-    query = User.query.filter(User.username == identificator)
+    query = User.query.filter(User.id == identificator)
 
     # import ipdb; ipdb.set_trace()
 
