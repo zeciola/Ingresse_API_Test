@@ -55,7 +55,7 @@ def change(identificator):
     query = User.query.filter(User.id == identificator)
 
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify("Error not found user id"), 401
+        return jsonify(f"Error not found user id: {identificator}"), 401
 
     query.update(request.json)
     current_app.db.session.commit()
@@ -72,7 +72,7 @@ def change_username(identificator):
     us = UserSchema()
     query = User.query.filter(User.username == identificator)
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify("Error not found user"), 401
+        return jsonify(f"Error not found user {identificator}"), 401
     query.update(request.json)
     current_app.db.session.commit()
 
@@ -91,7 +91,7 @@ def delete_id(identificator):
     # import ipdb; ipdb.set_trace()
 
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify("Error not found user id"), 401
+        return jsonify(f"Error not found user id: {identificator}"), 401
 
     User.query.filter(User.id == identificator).delete()
     current_app.db.session.commit()
