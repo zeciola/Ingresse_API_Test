@@ -36,6 +36,6 @@ def login():
         )
 
     return (
-        jsonify({"msg", "Invalid credentials, please insert a valid credentials"}),
+        jsonify({"msg", "Invalid credentials, please insert a valid credential"}),
         401,
     )
