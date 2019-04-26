@@ -29,7 +29,7 @@ def show():
 
 @blue_print_user.route("/show_by_id/<identificator>", methods=["GET"])
 @jwt_required
-def show_by_id(identificator):
+def show_by_id(identificator: int):
 
     result = User.query.filter(User.id == identificator)
 
@@ -61,12 +61,12 @@ def register():
 
 @blue_print_user.route("/change_by_id/<identificator>", methods=["PUT"])
 @jwt_required
-def change_id(identificator):
+def change_id(identificator: int):
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
 
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify(f"Error not found user {identificator}"), 401
+        return jsonify({"Error": f"Error not found user {identificator}"}), 401
 
     query.update(request.json)
     current_app.db.session.commit()
@@ -79,7 +79,7 @@ def change_id(identificator):
 
 @blue_print_user.route("/delete_by_id/<identificator>", methods=["DELETE"])
 @jwt_required
-def delete_id(identificator):
+def delete_id(identificator: int):
 
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
@@ -87,9 +87,9 @@ def delete_id(identificator):
     # import ipdb; ipdb.set_trace()
 
     if us.jsonify(query.first()).get_json() == {}:
-        return jsonify(f"Error not found user id: {identificator}"), 401
+        return jsonify({"Error": f"Error not found user id: {identificator}"}), 401
 
     User.query.filter(User.id == identificator).delete()
     current_app.db.session.commit()
 
-    return jsonify(f"The user for id: {identificator} has been deleted"), 200
+    return jsonify({"msg": f"The user for id: {identificator} has been deleted"}), 200

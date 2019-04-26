@@ -19,5 +19,5 @@ class User(db.Model):
     def password_hash(self):
         self.password = pbkdf2_sha512.hash(self.password)
 
-    def password_veification(self, password):
+    def password_verification(self, password):
         return pbkdf2_sha512.verify(password, self.password)

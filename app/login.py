@@ -17,7 +17,7 @@ def login():
 
     user = User.query.filter_by(username=user.username).first()
 
-    if user and user.password_veification(request.json["password"]):
+    if user and user.password_verification(request.json["password"]):
         acess_token = create_access_token(
             identity=user.id, expires_delta=timedelta(minutes=1)
         )
