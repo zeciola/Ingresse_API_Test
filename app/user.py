@@ -9,7 +9,7 @@ blue_print_user = Blueprint("user", __name__)
 
 @blue_print_user.route("/")
 def defalt():
-    return jsonify({"Ingresse API Online": True})
+    return jsonify({"Ingresse API Online": True}), 200
 
 
 # Mostrar todos
@@ -39,7 +39,7 @@ def show_by_id(identificator):
 # Registar
 
 
-@blue_print_user.route("/register_user", methods=["POST"])
+@blue_print_user.route("/register", methods=["POST"])
 def register():
     us = UserSchema()
 

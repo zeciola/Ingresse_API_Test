@@ -14,7 +14,7 @@ class User(db.Model):
     username = db.Column(db.String(255), nullable=False)
     password = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False)
-    date_of_birth = db.Column(db.DateTime())
+    date_of_birth = db.Column(db.Date())
 
     def password_hash(self):
         self.password = pbkdf2_sha512.hash(self.password)

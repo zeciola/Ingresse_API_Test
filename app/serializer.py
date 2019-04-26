@@ -16,4 +16,4 @@ class UserSchema(ma.ModelSchema):
     username = fields.Str(required=True)
     password = fields.Str(required=True)
     email = fields.Str(required=True)
-    date_of_birth = fields.DateTime(required=False)
+    date_of_birth = fields.Date(required=False)

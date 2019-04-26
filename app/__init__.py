@@ -26,8 +26,8 @@ def create_app():
 
     app.register_blueprint(blue_print_user)
 
-    from .user_login import blue_print_user_login
+    from .login import blue_print_login
 
-    app.register_blueprint(blue_print_user_login)
+    app.register_blueprint(blue_print_login)
 
     return app

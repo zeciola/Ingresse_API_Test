@@ -4,10 +4,10 @@ from .model import User
 from .serializer import UserSchema
 from datetime import timedelta
 
-blue_print_user_login = Blueprint("user_login", __name__)
+blue_print_login = Blueprint("login", __name__)
 
 
-@blue_print_user_login.route("/login", methods=["POST"])
+@blue_print_login.route("/login", methods=["POST"])
 def login():
 
     user, error = UserSchema().load(request.json)
