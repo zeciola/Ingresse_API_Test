@@ -24,12 +24,11 @@ class TestBaseFlask(TestCase):
         self.app.db.drop_all()
 
     def create_user(self):
-        self.client.post(url_for('user.register'), json=self.user)
+        self.client.post(url_for("user.register"), json=self.user)
 
     def create_token(self):
-        login_token = self.client.post(url_for('login.login'), json=self.user)
+        login_token = self.client.post(url_for("login.login"), json=self.user)
 
         return {
-            "Authorization": "Bearer "
-            + loads(login_token.data.decode())["acess_token"]
+            "Authorization": "Bearer " + loads(login_token.data.decode())["acess_token"]
         }
