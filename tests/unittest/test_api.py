@@ -27,7 +27,8 @@ class TestShowId(TestBaseFlask):
             url_for("user.show_by_id", identificator=1), headers=token
         )
 
-        list_keys_except = {
+        #
+        dict_keys_except = {
             "date_of_birth": "2019-04-25",
             "email": "teste@teste.com",
             "id": 1,
@@ -38,7 +39,7 @@ class TestShowId(TestBaseFlask):
         self.assertEqual(response.json[0].get("id"), 1)
         # Teste se tem todas as Keys
 
-        self.assertEqual(response.json[0].keys(), list_keys_except.keys())
+        self.assertEqual(response.json[0].keys(), dict_keys_except.keys())
         # Testa se não a valores None
         self.assertNotIn(None, response.json[0].values())
 
@@ -116,6 +117,16 @@ class TestRegister(TestBaseFlask):
         response = self.client.post(url_for("user.register"), json="adsada")
 
         except_response = {"_schema": ["Invalid input type."]}
+
+        self.assertEqual(response.json, except_response)
+
+    def test_error_send_id_register_user(self):
+
+        self.user.update({"id": 1})
+
+        response = self.client.post(url_for("user.register"), json=self.user)
+
+        except_response = {"id": ["Please, dont send id"]}
 
         self.assertEqual(response.json, except_response)
 

@@ -14,6 +14,8 @@ def login():
 
     if error:
         return jsonify(error), 401
+    elif "date_of_birth" in request.json.keys():
+        return jsonify({"Error": "Please dont send date_of_birth to login"}), 401
 
     user = User.query.filter_by(username=user.username).first()
 
@@ -36,6 +38,6 @@ def login():
         )
 
     return (
-        jsonify({"msg", "Invalid credentials, please insert a valid credential"}),
+        jsonify({"msg": "Invalid credentials, please insert a valid credential"}),
         401,
     )

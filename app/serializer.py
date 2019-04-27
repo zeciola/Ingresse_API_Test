@@ -17,3 +17,7 @@ class UserSchema(ma.ModelSchema):
     password = fields.Str(required=True)
     email = fields.Str(required=True)
     date_of_birth = fields.Date(required=False)
+
+    @validates("id")
+    def validate_id(self, value):
+        raise ValidationError("Please, dont send id")

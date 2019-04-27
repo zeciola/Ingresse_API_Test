@@ -27,6 +27,9 @@ class TestBaseFlask(TestCase):
         self.client.post(url_for("user.register"), json=self.user)
 
     def create_token(self):
+
+        self.user.pop("date_of_birth")
+
         login_token = self.client.post(url_for("login.login"), json=self.user)
 
         return {
