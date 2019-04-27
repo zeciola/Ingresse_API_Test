@@ -205,6 +205,8 @@ class TestDelete(TestBaseFlask):
         self.assertEqual(response.json, delete_except)
 
 
+# TODO fazer polimorfismo:
+
 class TestToken(TestBaseFlask):
     def test_token_change(self):
 
