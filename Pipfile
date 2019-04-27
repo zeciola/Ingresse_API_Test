@@ -8,6 +8,7 @@ requests = "*"
 ipdb = "*"
 coverage = "*"
 behave = "*"
+pytest = "*"
 
 [packages]
 flask-marshmallow = "*"
