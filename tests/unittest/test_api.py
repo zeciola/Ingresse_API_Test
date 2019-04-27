@@ -203,3 +203,169 @@ class TestDelete(TestBaseFlask):
         )
 
         self.assertEqual(response.json, delete_except)
+
+
+class TestToken(TestBaseFlask):
+    def test_token_change(self):
+
+        self.create_user()
+
+        token = self.create_token()
+
+        change_value = {"username": "Change_OK"}
+
+        response = self.client.put(
+            url_for("user.change_id", identificator=1), json=change_value
+        )
+
+        except_error = {"msg": "Missing Authorization Header"}
+
+        self.assertEqual(response.json, except_error)
+
+        import time
+
+        time.sleep(2)
+
+        response = self.client.put(
+            url_for("user.change_id", identificator=1), json=change_value, headers=token
+        )
+
+        except_error = {"msg": "Token has expired"}
+
+        self.assertEqual(response.json, except_error)
+
+        # token invalido
+        token.update(
+            {
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTYzMzA2NzYsIm5iZiI6MTU1NjMzMDY3NiwianRpIjoiY2NlMTQzMTgtNjFlNS00NDJjLWEyMmUtNzI3MjIzNGRjOTZmIiwiZXhwIjoxNTU2MzMwNzM2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.LoF4EezkrsqTVWts3vj9skJW6-token_invalido"
+            }
+        )
+
+        response = self.client.put(
+            url_for("user.change_id", identificator=1), json=change_value, headers=token
+        )
+
+        except_error = {"msg": "Signature verification failed"}
+
+        self.assertEqual(response.json, except_error)
+
+        ...
+
+    def test_token_show(self):
+
+        self.create_user()
+
+        token = self.create_token()
+
+        response = self.client.get(url_for("user.show"))
+
+        except_error = {"msg": "Missing Authorization Header"}
+
+        self.assertEqual(response.json, except_error)
+
+        import time
+
+        time.sleep(2)
+
+        response = self.client.get(url_for("user.show"), headers=token)
+
+        except_error = {"msg": "Token has expired"}
+
+        self.assertEqual(response.json, except_error)
+
+        # token invalido
+        token.update(
+            {
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTYzMzA2NzYsIm5iZiI6MTU1NjMzMDY3NiwianRpIjoiY2NlMTQzMTgtNjFlNS00NDJjLWEyMmUtNzI3MjIzNGRjOTZmIiwiZXhwIjoxNTU2MzMwNzM2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.LoF4EezkrsqTVWts3vj9skJW6-token_invalido"
+            }
+        )
+
+        response = self.client.get(url_for("user.show"), headers=token)
+
+        except_error = {"msg": "Signature verification failed"}
+
+        self.assertEqual(response.json, except_error)
+
+        ...
+
+    def test_token_show_by_id(self):
+
+        self.create_user()
+        self.create_user()
+
+        token = self.create_token()
+
+        response = self.client.get(url_for("user.show_by_id", identificator=1))
+
+        except_error = {"msg": "Missing Authorization Header"}
+
+        self.assertEqual(response.json, except_error)
+
+        import time
+
+        time.sleep(2)
+
+        response = self.client.get(
+            url_for("user.show_by_id", identificator=1), headers=token
+        )
+
+        except_error = {"msg": "Token has expired"}
+
+        self.assertEqual(response.json, except_error)
+
+        # token invalido
+        token.update(
+            {
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTYzMzA2NzYsIm5iZiI6MTU1NjMzMDY3NiwianRpIjoiY2NlMTQzMTgtNjFlNS00NDJjLWEyMmUtNzI3MjIzNGRjOTZmIiwiZXhwIjoxNTU2MzMwNzM2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.LoF4EezkrsqTVWts3vj9skJW6-token_invalido"
+            }
+        )
+
+        response = self.client.get(
+            url_for("user.show_by_id", identificator=1), headers=token
+        )
+
+        except_error = {"msg": "Signature verification failed"}
+
+        self.assertEqual(response.json, except_error)
+
+        ...
+
+    def test_token_delete(self):
+
+        self.create_user()
+
+        token = self.create_token()
+
+        response = self.client.delete(url_for("user.delete_id", identificator=1))
+
+        except_error = {"msg": "Missing Authorization Header"}
+
+        self.assertEqual(response.json, except_error)
+
+        import time
+
+        time.sleep(2)
+
+        response = self.client.delete(
+            url_for("user.delete_id", identificator=1), headers=token
+        )
+
+        except_error = {"msg": "Token has expired"}
+
+        self.assertEqual(response.json, except_error)
+
+        # token invalido
+        token.update(
+            {
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE1NTYzMzA2NzYsIm5iZiI6MTU1NjMzMDY3NiwianRpIjoiY2NlMTQzMTgtNjFlNS00NDJjLWEyMmUtNzI3MjIzNGRjOTZmIiwiZXhwIjoxNTU2MzMwNzM2LCJpZGVudGl0eSI6MSwiZnJlc2giOmZhbHNlLCJ0eXBlIjoiYWNjZXNzIn0.LoF4EezkrsqTVWts3vj9skJW6-token_invalido"
+            }
+        )
+
+        response = self.client.delete(
+            url_for("user.delete_id", identificator=1), headers=token
+        )
+
+        except_error = {"msg": "Signature verification failed"}
+
+        self.assertEqual(response.json, except_error)
+        ...

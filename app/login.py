@@ -21,7 +21,7 @@ def login():
 
     if user and user.password_verification(request.json["password"]):
         acess_token = create_access_token(
-            identity=user.id, expires_delta=timedelta(minutes=1)
+            identity=user.id, expires_delta=timedelta(seconds=1)
         )
 
         refresh_token = create_refresh_token(identity=user.id)
