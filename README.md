@@ -2,7 +2,7 @@
 
 This project is a simple API user.
 
-# Run Project
+# Run Project:
 
 '''sh
 
@@ -14,7 +14,7 @@ flask run
 
 '''
 
-# Make migrations
+# Create db and make migrations:
 
 '''sh
 
