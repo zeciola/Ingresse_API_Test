@@ -23,7 +23,7 @@ static           GET      /static/<path:filename>
 
 user.change_id   PUT      /change_by_id/<identificator>
 
-user.defalt      GET      /
+user.default     GET      /
 
 user.delete_id   DELETE   /delete_by_id/<identificator>
 

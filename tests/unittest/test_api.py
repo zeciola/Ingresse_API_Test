@@ -73,10 +73,10 @@ class TestShowId(TestBaseFlask):
         self.assertEqual(response.json, None)
 
 
-class TestDefalt(TestBaseFlask):
-    def test_json_response_from_defalt(self):
+class Testdefault(TestBaseFlask):
+    def test_json_response_from_default(self):
 
-        response = self.client.get(url_for("user.defalt"))
+        response = self.client.get(url_for("user.default"))
 
         except_response = {"Ingresse API Online": True}
 

@@ -8,7 +8,7 @@ blue_print_user = Blueprint("user", __name__)
 
 
 @blue_print_user.route("/")
-def defalt():
+def default():
     return jsonify({"Ingresse API Online": True}), 200
 
 
