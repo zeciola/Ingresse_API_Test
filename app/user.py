@@ -84,8 +84,6 @@ def delete_id(identificator: int):
     us = UserSchema()
     query = User.query.filter(User.id == identificator)
 
-    # import ipdb; ipdb.set_trace()
-
     if us.jsonify(query.first()).get_json() == {}:
         return jsonify({"Error": f"Error not found user id: {identificator}"}), 401
 
