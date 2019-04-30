@@ -1,0 +1,7 @@
+migrations/*
+htmlcov/*
+.coverage
+.vscode/*
+.pytest_cache/*
+.idea/*
+__pycache__/*
